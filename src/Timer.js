@@ -1,0 +1,83 @@
+import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
+import moment from 'moment';
+
+export default class Timer extends Component {
+  constructor(props) {
+    super(props);
+
+    this._interval = null;
+    this._offset = null;
+
+    this.state = {
+      elapsedTime: 0,
+      on: false
+    };
+  }
+
+  play() {
+    if (!this._interval) {
+      this.setState({
+        on: true
+      });
+      this._offset = Date.now();
+      this._interval = setInterval(this.update.bind(this), 5);
+    }
+  }
+
+  pause() {
+    this.setState({
+      on: false
+    });
+    clearInterval(this._interval);
+    this._interval = null;
+  }
+
+  reset() {
+    this.pause();
+    this.setState({elapsedTime: 0});
+  }
+
+  update() {
+    this.setState({
+      elapsedTime: this.state.elapsedTime + this.calculateElapsedTime()
+    });
+  }
+
+  calculateElapsedTime() {
+    let now = Date.now();
+    let elapsedTime = now - this._offset;
+    this._offset = now;
+    return elapsedTime;
+  }
+
+  displayTimer() {
+    let duration = moment.duration(this.state.elapsedTime, 'ms');
+    return moment(duration.asMilliseconds()).format('mm:ss.SSS');
+  }
+
+  render() {
+    let playStop;
+    if (!this.state.on) {
+      playStop = (
+        <FontAwesome name="play" onClick={this.play.bind(this)} />
+      );
+    } else {
+      playStop = (
+        <FontAwesome name="pause" onClick={this.pause.bind(this)} />
+      );
+    }
+
+    return (
+      <div>
+        <div>
+          {this.displayTimer()}
+        </div>
+        <div>
+          {playStop}
+          <FontAwesome name="refresh" onClick={this.reset.bind(this)} />
+        </div>
+      </div>
+    );
+  }
+}
