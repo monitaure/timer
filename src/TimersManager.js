@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import Timer from './Timer.js';
+import './TimersManager.css'
 
 export default class TimersManager extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class TimersManager extends Component {
     return (
       <div>
         <div>
-          <ul>
+          <ul className="timers-list">
             {timersList}
           </ul>
         </div>

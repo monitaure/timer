@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';
+import './Timer.css';
 
 export default class Timer extends Component {
   constructor(props) {
@@ -60,22 +61,22 @@ export default class Timer extends Component {
     let playStop;
     if (!this.state.on) {
       playStop = (
-        <FontAwesome name="play" onClick={this.play.bind(this)} />
+        <FontAwesome className="control" name="play" onClick={this.play.bind(this)} />
       );
     } else {
       playStop = (
-        <FontAwesome name="pause" onClick={this.pause.bind(this)} />
+        <FontAwesome className="control" name="pause" onClick={this.pause.bind(this)} />
       );
     }
 
     return (
-      <div>
-        <div>
+      <div className="timer">
+        <div className="clock">
           {this.displayTimer()}
         </div>
-        <div>
+        <div className="controls">
           {playStop}
-          <FontAwesome name="refresh" onClick={this.reset.bind(this)} />
+          <FontAwesome className="control" name="refresh" onClick={this.reset.bind(this)} />
         </div>
       </div>
     );

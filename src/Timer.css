@@ -1,0 +1,13 @@
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer .clock, .timer .controls {
+  padding: 5px;
+}
+
+.timer .controls .control {
+  padding: 5px;
+}
