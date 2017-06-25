@@ -12,7 +12,8 @@ export default class Timer extends Component {
 
     this.state = {
       elapsedTime: 0,
-      on: false
+      on: false,
+      label: ''
     };
   }
 
@@ -45,6 +46,12 @@ export default class Timer extends Component {
     });
   }
 
+  handleLabelInput(e) {
+    this.setState({
+      label: e.target.value
+    });
+  }
+
   calculateElapsedTime() {
     let now = Date.now();
     let elapsedTime = now - this._offset;
@@ -71,6 +78,9 @@ export default class Timer extends Component {
 
     return (
       <div className="timer">
+        <div className="label">
+          <input type="text" onChange={this.handleLabelInput.bind(this)} value={this.state.label} />
+        </div>
         <div className="clock">
           {this.displayTimer()}
         </div>
